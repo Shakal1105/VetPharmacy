@@ -82,6 +82,7 @@ class Bot():
                             file = open("price.txt", 'a')
                             file.write(str(num) + '\n')
                             file.close()
+                        bot.delete_messages(message.chat.id, message.id)
                 except ValueError:
                     pass
 
