@@ -53,7 +53,7 @@ class Bot():
         def tovars(bot, message):
             if message.from_user.id in self.admins:
                 self.tovars_text = ''
-                file = open('tovar.txt', 'r')
+                file = open('tovar.txt', 'r', encoding = "utf-8")
                 tovaru = []
                 for tov in file:
                     tovaru.append(tov)
