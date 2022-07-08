@@ -90,7 +90,7 @@ class Bot():
                     if message.text[0] == "+":
                         if message.text[-1] == '+':
                             num = message.text[1:]
-                            num = int(num[:-1])
+                            num = float(num[:-1])
                             self.price.append(str(num) + " Terminal")
                             bot.send_message(message.chat.id, f"+ {str(num)} грн")
                             self.prices.append(str(num))
@@ -101,7 +101,7 @@ class Bot():
                             file.write(str(num)+' Terminal\n')
                             file.close()
                         else:
-                            num = int(message.text[1:])
+                            num = float(message.text[1:])
                             self.price.append(str(num))
                             bot.send_message(message.chat.id, f"+ {str(num)} грн")
                             self.prices.append(str(num))
