@@ -99,7 +99,7 @@ class Bot():
                     bot.answer_callback_query(callback_query.id,text="Для того щоб вносити грощі до нотатки потрібно написати + сума наприклад\n+123\n\nякщо по терміналу в кінці обов'язково  +\n+1823+\n\nЯкщо копійки\n+194.13  - обовьязково крапка",show_alert=True)
                 elif callback == 'products':
                     self.tovars_text = ''
-                    file = open('tovar.txt', 'r')
+                    file = open('tovar.txt', 'r', encoding = "utf-8")
                     tovaru = []
                     for tov in file:
                         tovaru.append(tov)
