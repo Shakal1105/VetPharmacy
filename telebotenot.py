@@ -14,6 +14,7 @@ class Bot():
         ###############################
         self.commands = ["start", "help"]
         self.keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text="+сумма детальніше", callback_data="sum")],[InlineKeyboardButton(text="Список товарів", callback_data="products"),InlineKeyboardButton(text="Список Користувачів", callback_data="users")],[InlineKeyboardButton(text="Список продажу в грн за день", callback_data='money')],[InlineKeyboardButton(text="Видалити історію заробітку за день", callback_data="clear")],[InlineKeyboardButton(text="= Загальна сума", callback_data="=")],[InlineKeyboardButton(text="Назад", callback_data="back"), InlineKeyboardButton(text="Завершити роботу",callback_data="exit")]])
+        self.keyboard_user = InlineKeyboardMarkup([[InlineKeyboardButton(text="Відвідати сайт", url="https://62cdf5192251b.site123.me/")],[InlineKeyboardButton(text="Завершити роботу",callback_data="exit")]])
         file = open('users.txt', 'r')
         self.us = set()
         for line in file:
@@ -85,6 +86,8 @@ class Bot():
                     else:bot.send_message(message.chat.id, text="Оберіть те що вам потрібно", reply_markup=self.keyboard)
                 except ValueError:
                     pass
+            else:
+                bot.send_message(message.chat.id, "Доброго дня будьласка користуйтесь кнопками задля навігації")
 
         @bot.callback_query_handler(func=lambda callback_query: True)
         def callback(callback_query: CallbackQuery):
@@ -122,16 +125,19 @@ class Bot():
                     for line in file:
                         self.tovars_text = self.tovars_text + line
                     bot.send_message(callback_query.message.chat.id, self.tovars_text)
-                elif callback == "clear":
+                elif callback == "yesdel":
                     self.prices = []
                     self.price = []
                     file = open('prices.txt', 'w')
                     file.write('')
                     file.close()
                     file = open('price.txt', 'w')
-                    file.write('0'+'\n')
+                    file.write('0' + '\n')
                     file.close()
                     bot.send_message(callback_query.message.chat.id, "Історія продажу видалена")
+                    bot.edit_message_text(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id,text="Оберіть те що вам потрібно", reply_markup=self.keyboard)
+                elif callback == "clear":
+                    bot.edit_message_text(chat_id=callback_query.message.chat.id, text="Ви точно хочете видалити історію продажу?", message_id=callback_query.message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Так",callback_data='yesdel'),InlineKeyboardButton(text="Ні",callback_data="admin")]]))
                 elif callback == "=":
                     arr = []
                     terminal = 0
@@ -153,11 +159,15 @@ class Bot():
                 elif callback == "exit":
                     bot.delete_message(callback_query.message.chat.id, callback_query.message.id)
                     bot.send_message(callback_query.message.chat.id, text="Гарного вам дня та успіху 🦝")
+            if callback == "user":
+                bot.edit_message_text(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, text="Можливості користувача:", reply_markup=self.keyboard_user)
+            elif callback == "exit":
+                bot.edit_message_text(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, text="Гарного вам дня та успіху 🦝")
         try:
             bot.polling()
         except Exception as e:
             print(e)
-            time.sleep(2)
+            time.sleep(11)
             self.vet()
 if __name__ == "__main__":
     Bot()
