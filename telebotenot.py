@@ -166,7 +166,7 @@ class Bot():
                     bot.edit_message_text(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, text="Гарного вам дня та успіху 🦝")
             
             except Exception as e:
-                print(e)
+                bot.answer_callback_query(callback_query.id, text=e)
                 callback="error"
                 pass
         bot.polling()
