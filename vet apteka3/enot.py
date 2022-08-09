@@ -7,7 +7,7 @@ class Bot():
         self.api_id = 9958356
         self.hash = "8895b2a2b674f00658660440ef8adcbb"
         #############значения##########
-        self.admins = [697798016, 897669172, 478323960]
+        self.admins = [697798016, 897669172]
         self.tovars = {}
         self.price = []
 
