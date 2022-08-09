@@ -167,10 +167,8 @@ class Bot():
             try:
                 spisok = ["count11", "price11", "deltovaroblik"]
                 if callback_query.data not in spisok: self.callback = callback_query.data
-                print(self.callback)
                 if callback_query.data == "deltovaroblik":
                     self.arr.remove(self.callback)
-                    print(self.arr)
                     self.tovars.pop(self.callback)
                     self.update_oblik = InlineKeyboardMarkup([[InlineKeyboardButton(text="Меню", callback_data='admin'), InlineKeyboardButton(text="Сума всього", callback_data="sumalloblik")]])
                     self.obliksave()
