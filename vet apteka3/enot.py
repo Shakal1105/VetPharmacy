@@ -94,7 +94,6 @@ class Bot():
                     pass
                 else:
                     self.arr.append(self.name)
-                    print(self.arr)
                     self.button = InlineKeyboardButton(text=self.name, callback_data=self.name)
                     self.tovars[self.name] = {"price": self.pricex, "count": self.county}
                     self.update_oblik.add(self.button)
