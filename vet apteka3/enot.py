@@ -86,7 +86,7 @@ class Bot():
 
         @bot.message_handler(commands=["add"])
         def oblikadd(mess):
-            If mess.from_user.id in self.admins:
+            if mess.from_user.id in self.admins:
                 self.pricex = 0
                 self.county
                 self.name = mess.text[4:].replace(" ", "")
