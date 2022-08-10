@@ -86,44 +86,43 @@ class Bot():
 
         @bot.message_handler(commands=["add"])
         def oblikadd(mess):
-            self.pricex = 0
-            self.county
-            self.name = mess.text[4:].replace(" ", "")
-            if self.name == "" or self.name in self.arr:
-                pass
-            else:
-                self.arr.append(self.name)
-                print(self.arr)
-                self.button = InlineKeyboardButton(text=self.name, callback_data=self.name)
-                self.tovars[self.name] = {"price": self.pricex, "count": self.county}
-                self.update_oblik.add(self.button)
-                bot.delete_message(mess.chat.id, message_id=mess.id)
-                self.obliksave()
+            If mess.from_user.id in self.admins:
+                self.pricex = 0
+                self.county
+                self.name = mess.text[4:].replace(" ", "")
+                if self.name == "" or self.name in self.arr:
+                    pass
+                else:
+                    self.arr.append(self.name)
+                    print(self.arr)
+                    self.button = InlineKeyboardButton(text=self.name, callback_data=self.name)
+                    self.tovars[self.name] = {"price": self.pricex, "count": self.county}
+                    self.update_oblik.add(self.button)
+                    bot.delete_message(mess.chat.id, message_id=mess.id)
+                    self.obliksave()
         ##################### Calculator ###################################
         @bot.message_handler(content_types=["text"])
         def cheker(message):
-            if self.target == "price":
-                self.target = ''
-                try:
-                    self.pricex=float(message.text)
-                    self.tovars[self.callback] = {"price":self.pricex, "count":self.county}
-                    self.obliksave()
-                    bot.delete_message(chat_id=message.chat.id, message_id=message.id)
-                except ValueError:
-                    pass
-
-            elif self.target == "count":
-                self.target = ''
-                try:
-                    self.county = int(message.text)
-                    self.tovars[self.callback] = {"price": self.pricex, "count": self.county}
-                    self.obliksave()
-                    bot.delete_message(chat_id=message.chat.id, message_id=message.id)
-                except ValueError:
-                    pass
-
-            else:pass
             if message.from_user.id in self.admins:
+                if self.target == "price":
+                    self.target = ''
+                    try:
+                        self.pricex=float(message.text)
+                        self.tovars[self.callback] = {"price":self.pricex, "count":self.county}
+                        self.obliksave()
+                        bot.delete_message(chat_id=message.chat.id, message_id=message.id)
+                    except ValueError:
+                        pass
+
+                elif self.target == "count":
+                    self.target = ''
+                    try:
+                        self.county = int(message.text)
+                        self.tovars[self.callback] = {"price": self.pricex, "count": self.county}
+                        self.obliksave()
+                        bot.delete_message(chat_id=message.chat.id, message_id=message.id)
+                    except ValueError:
+                        pass
                 try:
                     if message.text == "add":
                         self.admins.append(int(message.text[3:]))
